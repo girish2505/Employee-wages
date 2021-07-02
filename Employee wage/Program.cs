@@ -11,8 +11,10 @@ namespace Employee_wage
         public const int WORKING_DAYS_PER_MONTH = 20;
         public const int WORKING_HOURS_PER_MONTH = 100;
 
-        static void Main(string[] args)
+        public static void ComputeWage()
         {
+            int empHours = 0;
+            int empWage = 0;
             int workingDays = 0;
             int wagesForMonth = 0;
             int workingHours = 0;
@@ -26,25 +28,37 @@ namespace Employee_wage
                 switch (empInput)
                 {
                     case FULL_TIME:
-                        Console.WriteLine("Employee is Present Full Time");
+                       // Console.WriteLine("Employee is Present Full Time");
                         workingHours = 8;
                         break;
                     case PART_TIME:
-                        Console.WriteLine("Employee is Present Part Time");
+                        //Console.WriteLine("Employee is Present Part Time");
                         workingHours = 4;
                         break;
                     default:
-                        Console.WriteLine("Employee is Absent");
+                       // Console.WriteLine("Employee is Absent");
                         workingHours = 0;
                         break;
                 }
+                //applying formula for finding out employee salary
+                empWage = WAGE_PER_HOUR * empHours;
+                workingHours += empHours;
                 totalWorkingHours += workingHours;
-                workingDays++;
+                if (empInput != 0)
+                {
+                    workingDays++;
+
+                }
             }
             //formula for calculating wagesForMonth
             wagesForMonth = WAGE_PER_HOUR * totalWorkingHours;
             Console.WriteLine("Employee wage per month is " + wagesForMonth);
             Console.Read();
+        }
+        static void Main(string[] args)
+        {
+            ComputeWage();
+
         }
     }
 }
