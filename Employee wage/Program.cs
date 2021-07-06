@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Employee_wage
 {
@@ -14,25 +17,25 @@ namespace Employee_wage
         //private int workingDaysPerMonth;
         //private int maxWorkingHours;
         //private int wagesForMonth;
-        private int TotalCompanies = 0;
-        private CompanyEmpWage[] CompanyEmpArray;
+        private ArrayList CompanyEmpList;
         public EmployeeWage()
         {
-            this.CompanyEmpArray = new CompanyEmpWage[20];
+            this.CompanyEmpList = new ArrayList();
         }
 
 
         public void empWage(string company, int wagePerHour, int workingDaysPerMonth, int maxWorkingHours)
         {
-            CompanyEmpArray[this.TotalCompanies++] = new CompanyEmpWage(company, wagePerHour, workingDaysPerMonth, maxWorkingHours);
+            CompanyEmpWage cew = new CompanyEmpWage(company, wagePerHour, workingDaysPerMonth, maxWorkingHours);
+            this.CompanyEmpList.Add(cew);
 
         }
         public void ComputeEmpWage()
         {
-            for (int i = 0; i < TotalCompanies; i++)
+            foreach (CompanyEmpWage i in this.CompanyEmpList)
             {
-                CompanyEmpArray[i].WagePerMont(this.CalculateEmpWage(this.CompanyEmpArray[i]));
-                Console.WriteLine(this.CompanyEmpArray[i].toString());
+                 i.WagePerMont(this.CalculateEmpWage(i));
+                Console.WriteLine(i.toString());
             }
         }
         private int CalculateEmpWage(CompanyEmpWage company)
