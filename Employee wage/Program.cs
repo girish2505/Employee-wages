@@ -2,26 +2,37 @@
 
 namespace Employee_wage
 {
-    class Program
+    class EmployeeWage
     {
         public const int FULL_TIME = 1;
-        public const int ABSENT = 0;
         public const int PART_TIME = 2;
         //public const int WAGE_PER_HOUR = 20;
         //public const int WORKING_DAYS_PER_MONTH = 20;
         //public const int WORKING_HOURS_PER_MONTH = 100;
+        private string company;
+        private int wagePerHour;
+        private int workingDaysPerMonth;
+        private int maxWorkingHours;
+        private int wagesForMonth;
 
-
-        private static void CalculateEmpWage(string company, int wagePerHour, int workingDaysPerMonth, int maxWorkingHours)
+        public EmployeeWage(string company, int wagePerHour, int workingDaysPerMonth, int maxWorkingHours)
+        {
+             this.company = company;
+             this.wagePerHour = wagePerHour;
+             this.workingDaysPerMonth = workingDaysPerMonth;
+             this.maxWorkingHours = maxWorkingHours;
+            
+        }
+        private void CalculateEmpWage()
         {
             int workingDays = 0;
-            int wagesForMonth = 0;
+            //int wagesForMonth = 0;
             int workingHours = 0;
             int totalWorkingHours = 0;
 
             Random rand = new Random(); // intializing random class
             //for loop for calculating for 20 days
-            while (totalWorkingHours <= maxWorkingHours && workingDays < workingDaysPerMonth)
+            while (totalWorkingHours <= this.maxWorkingHours && workingDays < this.workingDaysPerMonth)
             {
                 int empInput = rand.Next(0, 3);//Generating random b/w 0 and 3
                 switch (empInput)
@@ -41,16 +52,24 @@ namespace Employee_wage
 
             }
 
-            wagesForMonth = wagePerHour * totalWorkingHours;//formula for wages
-            Console.WriteLine($"Total EmpWage For company {company} is {wagesForMonth}");
-
+            this.wagesForMonth = this.wagePerHour * totalWorkingHours;//formula for wages
+            
         }
+        public string toString()
+        {
+            return $"Total EmpWage For company {this.company} is {this.wagesForMonth}";
+        }
+
 
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Employee Wage Computation Problem");
-            CalculateEmpWage("deloitte", 50, 20, 100);
-            CalculateEmpWage("microsoft", 40, 20, 200);
+            EmployeeWage cts = new EmployeeWage("cts", 35,24,150);
+            cts.CalculateEmpWage();
+            Console.WriteLine(cts.toString());
+            EmployeeWage tcs = new EmployeeWage("tcs", 38, 25, 120);
+            tcs.CalculateEmpWage();
+            Console.WriteLine(tcs.toString());
             Console.Read();
         }
     }
