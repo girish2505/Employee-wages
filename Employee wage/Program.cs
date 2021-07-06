@@ -9,21 +9,33 @@ namespace Employee_wage
         //public const int WAGE_PER_HOUR = 20;
         //public const int WORKING_DAYS_PER_MONTH = 20;
         //public const int WORKING_HOURS_PER_MONTH = 100;
-        private string company;
-        private int wagePerHour;
-        private int workingDaysPerMonth;
-        private int maxWorkingHours;
-        private int wagesForMonth;
-
-        public EmployeeWage(string company, int wagePerHour, int workingDaysPerMonth, int maxWorkingHours)
+        //private string company;
+        //private int wagePerHour;
+        //private int workingDaysPerMonth;
+        //private int maxWorkingHours;
+        //private int wagesForMonth;
+        private int TotalCompanies = 0;
+        private CompanyEmpWage[] CompanyEmpArray;
+        public EmployeeWage()
         {
-             this.company = company;
-             this.wagePerHour = wagePerHour;
-             this.workingDaysPerMonth = workingDaysPerMonth;
-             this.maxWorkingHours = maxWorkingHours;
-            
+            this.CompanyEmpArray = new CompanyEmpWage[20];
         }
-        private void CalculateEmpWage()
+
+
+        public void empWage(string company, int wagePerHour, int workingDaysPerMonth, int maxWorkingHours)
+        {
+            CompanyEmpArray[this.TotalCompanies++] = new CompanyEmpWage(company, wagePerHour, workingDaysPerMonth, maxWorkingHours);
+
+        }
+        public void ComputeEmpWage()
+        {
+            for (int i = 0; i < TotalCompanies; i++)
+            {
+                CompanyEmpArray[i].WagePerMont(this.CalculateEmpWage(this.CompanyEmpArray[i]));
+                Console.WriteLine(this.CompanyEmpArray[i].toString());
+            }
+        }
+        private int CalculateEmpWage(CompanyEmpWage company)
         {
             int workingDays = 0;
             //int wagesForMonth = 0;
@@ -32,7 +44,7 @@ namespace Employee_wage
 
             Random rand = new Random(); // intializing random class
             //for loop for calculating for 20 days
-            while (totalWorkingHours <= this.maxWorkingHours && workingDays < this.workingDaysPerMonth)
+            while (totalWorkingHours <= company.maxWorkingHours && workingDays < company.workingDaysPerMonth)
             {
                 int empInput = rand.Next(0, 3);//Generating random b/w 0 and 3
                 switch (empInput)
@@ -52,25 +64,17 @@ namespace Employee_wage
 
             }
 
-            this.wagesForMonth = this.wagePerHour * totalWorkingHours;//formula for wages
-            
-        }
-        public string toString()
-        {
-            return $"Total EmpWage For company {this.company} is {this.wagesForMonth}";
-        }
+            return company.wagePerHour * totalWorkingHours;//formula for wages
 
-
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Employee Wage Computation Problem");
-            EmployeeWage cts = new EmployeeWage("cts", 35,24,150);
-            cts.CalculateEmpWage();
-            Console.WriteLine(cts.toString());
-            EmployeeWage tcs = new EmployeeWage("tcs", 38, 25, 120);
-            tcs.CalculateEmpWage();
-            Console.WriteLine(tcs.toString());
-            Console.Read();
+            EmployeeWage emp = new EmployeeWage();
+            emp.empWage("cts", 35, 24, 150);
+            emp.empWage("tcs", 48, 25, 120);
+            emp.ComputeEmpWage();
+
         }
     }
 }
