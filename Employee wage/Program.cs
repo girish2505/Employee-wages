@@ -2,7 +2,7 @@
 
 namespace Employee_wage
 {
-    class EmployeeWage
+    class EmployeeWage :EmpInterface
     {
         public const int FULL_TIME = 1;
         public const int PART_TIME = 2;
